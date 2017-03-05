@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>jQuery中 prop 与 attr 方法的区别 | DaMingGe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言attr() 方法是在jQuery 1.0版本就存在的一个获取DOM元素借点上attributes的方法。从jQuery 1.6版本开始，添加了一个porp()方法，改方法用于设置或返回当前jQuery对象所匹配的元素的属性值。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jQuery中 prop 与 attr 方法的区别">
+<meta property="og:url" content="http://damingge.com/2017/03/05/jQuery中-prop-与-attr-方法的区别/index.html">
+<meta property="og:site_name" content="DaMingGe">
+<meta property="og:description" content="前言attr() 方法是在jQuery 1.0版本就存在的一个获取DOM元素借点上attributes的方法。从jQuery 1.6版本开始，添加了一个porp()方法，改方法用于设置或返回当前jQuery对象所匹配的元素的属性值。">
+<meta property="og:updated_time" content="2017-03-05T06:07:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jQuery中 prop 与 attr 方法的区别">
+<meta name="twitter:description" content="前言attr() 方法是在jQuery 1.0版本就存在的一个获取DOM元素借点上attributes的方法。从jQuery 1.6版本开始，添加了一个porp()方法，改方法用于设置或返回当前jQuery对象所匹配的元素的属性值。">
+  
+    <link rel="alternate" href="/atom.xml" title="DaMingGe" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">DaMingGe</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://damingge.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-jQuery中-prop-与-attr-方法的区别" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/05/jQuery中-prop-与-attr-方法的区别/" class="article-date">
+  <time datetime="2017-03-05T05:48:30.000Z" itemprop="datePublished">2017-03-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      jQuery中 prop 与 attr 方法的区别
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>attr() 方法是在jQuery 1.0版本就存在的一个获取DOM元素借点上attributes的方法。从jQuery 1.6版本开始，添加了一个porp()方法，改方法用于设置或返回当前jQuery对象所匹配的元素的属性值。</p>
+<a id="more"></a>
+<p>在jQuery中，”attribute” 和”property”却是两个不同的概念。attribute表示HTML文档节点的属性，property表示JS对象的属性</p>
+<h2 id="浅析一下-jQuery-V3-1-1-源码"><a href="#浅析一下-jQuery-V3-1-1-源码" class="headerlink" title="浅析一下 jQuery-V3.1.1 源码"></a>浅析一下 jQuery-V3.1.1 源码</h2><h3 id="attr-方法部分源码"><a href="#attr-方法部分源码" class="headerlink" title="attr()方法部分源码"></a>attr()方法部分源码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">attr: <span class="function"><span class="keyword">function</span>(<span class="params"> elem, name, value </span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> ret, hooks,</div><div class="line">		nType = elem.nodeType;</div><div class="line"></div><div class="line">	<span class="comment">// Don't get/set attributes on text, comment and attribute nodes</span></div><div class="line">	<span class="keyword">if</span> ( nType === <span class="number">3</span> || nType === <span class="number">8</span> || nType === <span class="number">2</span> ) &#123;</div><div class="line">		<span class="keyword">return</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// Fallback to prop when attributes are not supported</span></div><div class="line">	<span class="keyword">if</span> ( <span class="keyword">typeof</span> elem.getAttribute === <span class="string">"undefined"</span> ) &#123;</div><div class="line">		<span class="keyword">return</span> jQuery.prop( elem, name, value );</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="comment">// Attribute hooks are determined by the lowercase version</span></div><div class="line">	<span class="comment">// Grab necessary hook if one is defined</span></div><div class="line">	<span class="keyword">if</span> ( nType !== <span class="number">1</span> || !jQuery.isXMLDoc( elem ) ) &#123;</div><div class="line">		hooks = jQuery.attrHooks[ name.toLowerCase() ] ||</div><div class="line">			( jQuery.expr.match.bool.test( name ) ? boolHook : <span class="literal">undefined</span> );</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">if</span> ( value !== <span class="literal">undefined</span> ) &#123;</div><div class="line">		<span class="keyword">if</span> ( value === <span class="literal">null</span> ) &#123;</div><div class="line">			jQuery.removeAttr( elem, name );</div><div class="line">			<span class="keyword">return</span>;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="keyword">if</span> ( hooks &amp;&amp; <span class="string">"set"</span> <span class="keyword">in</span> hooks &amp;&amp;</div><div class="line">			( ret = hooks.set( elem, value, name ) ) !== <span class="literal">undefined</span> ) &#123;</div><div class="line">			<span class="keyword">return</span> ret;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		elem.setAttribute( name, value + <span class="string">""</span> );</div><div class="line">		<span class="keyword">return</span> value;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">if</span> ( hooks &amp;&amp; <span class="string">"get"</span> <span class="keyword">in</span> hooks &amp;&amp; ( ret = hooks.get( elem, name ) ) !== <span class="literal">null</span> ) &#123;</div><div class="line">		<span class="keyword">return</span> ret;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	ret = jQuery.find.attr( elem, name );</div><div class="line"></div><div class="line">	<span class="comment">// Non-existent attributes return null, we normalize to undefined</span></div><div class="line">	<span class="keyword">return</span> ret == <span class="literal">null</span> ? <span class="literal">undefined</span> : ret;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="prop-方法部分源码"><a href="#prop-方法部分源码" class="headerlink" title="prop()方法部分源码"></a>prop()方法部分源码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">prop: <span class="function"><span class="keyword">function</span>(<span class="params"> elem, name, value </span>) </span>&#123;</div><div class="line">	<span class="keyword">var</span> ret, hooks,</div><div class="line">		nType = elem.nodeType;</div><div class="line"></div><div class="line">	<span class="comment">// Don't get/set properties on text, comment and attribute nodes</span></div><div class="line">	<span class="keyword">if</span> ( nType === <span class="number">3</span> || nType === <span class="number">8</span> || nType === <span class="number">2</span> ) &#123;</div><div class="line">		<span class="keyword">return</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">if</span> ( nType !== <span class="number">1</span> || !jQuery.isXMLDoc( elem ) ) &#123;</div><div class="line"></div><div class="line">		<span class="comment">// Fix name and attach hooks</span></div><div class="line">		name = jQuery.propFix[ name ] || name;</div><div class="line">		hooks = jQuery.propHooks[ name ];</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">if</span> ( value !== <span class="literal">undefined</span> ) &#123;</div><div class="line">		<span class="keyword">if</span> ( hooks &amp;&amp; <span class="string">"set"</span> <span class="keyword">in</span> hooks &amp;&amp;</div><div class="line">			( ret = hooks.set( elem, value, name ) ) !== <span class="literal">undefined</span> ) &#123;</div><div class="line">			<span class="keyword">return</span> ret;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="keyword">return</span> ( elem[ name ] = value );</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">if</span> ( hooks &amp;&amp; <span class="string">"get"</span> <span class="keyword">in</span> hooks &amp;&amp; ( ret = hooks.get( elem, name ) ) !== <span class="literal">null</span> ) &#123;</div><div class="line">		<span class="keyword">return</span> ret;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">return</span> elem[ name ];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="具体区别有哪些？"><a href="#具体区别有哪些？" class="headerlink" title="具体区别有哪些？"></a>具体区别有哪些？</h2><h3 id="方法各自操作的对象不同"><a href="#方法各自操作的对象不同" class="headerlink" title="方法各自操作的对象不同"></a>方法各自操作的对象不同</h3><p>attr()方法操作的是DOM节点。我们可以从源码可以看出来， attr() 会利用 element 的 getAttribute() 方法去获取值。</p>
+<p>prop()方法操作的是DOM对象。prop() 跟 attr() 方法稍微有所不同，prop() 方法会直接从当前调用的jQuery对象中进行取值。很显然prop的性能更高，因为attr需要访问DOM属性节点，访问DOM是最耗时的。这种情况适用于多选项全选和反选的情况。</p>
+<h3 id="值类型不同"><a href="#值类型不同" class="headerlink" title="值类型不同"></a>值类型不同</h3><blockquote>
+<p>attr()方法只能设置<strong>字符串类型</strong>的属性值，如果传递的值非字符串类型，也会调用toString()转换成字符串类型。</p>
+<p>prop()方法操作的是JS对象的属性，因此设置的属性值可以为包括数组和对象在内的<strong>任意类型</strong></p>
+</blockquote>
+<h2 id="什么时候该用prop？什么时候用attr？"><a href="#什么时候该用prop？什么时候用attr？" class="headerlink" title="什么时候该用prop？什么时候用attr？"></a>什么时候该用prop？什么时候用attr？</h2><ul>
+<li>对于HTML元素本身就带有的固有属性，在处理时，使用prop方法。</li>
+<li>对于HTML元素我们自己自定义的DOM属性，在处理时，使用attr方法。</li>
+</ul>
+<p>##使用案例</p>
+<h3 id="HTML模板"><a href="#HTML模板" class="headerlink" title="HTML模板"></a>HTML模板</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">label</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"check_ipt_01"</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">checked</span>=<span class="string">"checked"</span> /&gt;</span>我是一个傲娇的复选框<span class="tag">&lt;/<span class="name">label</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">label</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"check_ipt_02"</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> /&gt;</span>我是的复选框老二<span class="tag">&lt;/<span class="name">label</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="attr-方法案例"><a href="#attr-方法案例" class="headerlink" title="attr()方法案例"></a>attr()方法案例</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</div><div class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">// 获取属性值</span></div><div class="line">    <span class="built_in">console</span>.info($(<span class="string">'.box'</span>).attr(<span class="string">'class'</span>)); <span class="comment">// box</span></div><div class="line"></div><div class="line">    <span class="comment">// 设置自定义属性，值类型为字符串</span></div><div class="line">    $(<span class="string">'.box'</span>).attr(<span class="string">'cus_attr'</span>, <span class="string">'custom value'</span>);</div><div class="line">    <span class="built_in">console</span>.info($(<span class="string">'.box'</span>).attr(<span class="string">'cus_attr'</span>)); <span class="comment">// custom value</span></div><div class="line"></div><div class="line">    <span class="comment">// 设置自定义属性，值类型为非字符串</span></div><div class="line">    $(<span class="string">'.box'</span>).attr(<span class="string">'cus_attr'</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]);</div><div class="line">    <span class="built_in">console</span>.info($(<span class="string">'.box'</span>).attr(<span class="string">'cus_attr'</span>)); <span class="comment">// 1,2,3,4</span></div><div class="line"></div><div class="line">    <span class="comment">// 获取复选框的值</span></div><div class="line">    <span class="built_in">console</span>.info($(<span class="string">'.check_ipt_01'</span>).attr(<span class="string">'checked'</span>)); <span class="comment">// checked</span></div><div class="line">    <span class="built_in">console</span>.info($(<span class="string">'.check_ipt_02'</span>).attr(<span class="string">'checked'</span>)); <span class="comment">// undefined</span></div><div class="line"></div><div class="line">&#125;);</div><div class="line"><span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></div></pre></td></tr></table></figure>
+<h3 id="prop-方法案例"><a href="#prop-方法案例" class="headerlink" title="prop()方法案例"></a>prop()方法案例</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">// 获取属性值</span></div><div class="line">    <span class="built_in">console</span>.info($(<span class="string">'.box'</span>).prop(<span class="string">'class'</span>)); <span class="comment">// box</span></div><div class="line"></div><div class="line">    <span class="comment">// 设置自定义属性，值类型为字符串</span></div><div class="line">    $(<span class="string">'.box'</span>).prop(<span class="string">'cus_attr'</span>, <span class="string">'custom value'</span>);</div><div class="line">    <span class="built_in">console</span>.info($(<span class="string">'.box'</span>).prop(<span class="string">'cus_attr'</span>)); <span class="comment">// custom value</span></div><div class="line"></div><div class="line">    <span class="comment">// 设置自定义属性，值类型为非字符串</span></div><div class="line">    $(<span class="string">'.box'</span>).prop(<span class="string">'cus_attr'</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]);</div><div class="line">    <span class="built_in">console</span>.info($(<span class="string">'.box'</span>).prop(<span class="string">'cus_attr'</span>)); <span class="comment">// [1, 2, 3, 4]</span></div><div class="line"></div><div class="line">    <span class="comment">// 获取复选框的值</span></div><div class="line">    <span class="built_in">console</span>.info($(<span class="string">'.check_ipt_01'</span>).prop(<span class="string">'checked'</span>)); <span class="comment">// true</span></div><div class="line">    <span class="built_in">console</span>.info($(<span class="string">'.check_ipt_02'</span>).prop(<span class="string">'checked'</span>)); <span class="comment">// false</span></div><div class="line"></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><blockquote>
+<p>从1.6开始，使用attr()获取这些属性的返回值为String类型，如果被选中(或禁用)就返回checked、selected或disabled，否则(即元素节点没有该属性)返回undefined。并且，在某些版本中，这些属性值表示文档加载时的初始状态值，即使之后更改了这些元素的选中(或禁用)状态，对应的属性值也不会发生改变。</p>
+</blockquote>
+<p>##参考链接</p>
+<ul>
+<li><a href="http://blog.csdn.net/szwangdf/article/details/42964399" target="_blank" rel="external">http://blog.csdn.net/szwangdf/article/details/42964399</a></li>
+<li><a href="http://www.365mini.com/page/jquery-attr-vs-prop.htm" target="_blank" rel="external">http://www.365mini.com/page/jquery-attr-vs-prop.htm</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://damingge.com/2017/03/05/jQuery中-prop-与-attr-方法的区别/" data-id="cizw9jky400004m8q9gv61jvo" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery/">jQuery</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/">jQuery</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/03/05/jQuery中-prop-与-attr-方法的区别/">jQuery中 prop 与 attr 方法的区别</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 niki<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
